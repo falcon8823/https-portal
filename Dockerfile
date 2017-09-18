@@ -1,6 +1,6 @@
-FROM nginx:1.11
+FROM nginx:1.13.5
 
-MAINTAINER Weiyan Shao "lighteningman@gmail.com"
+MAINTAINER Hayato Okumoto "falcon@falconsrv.net"
 
 WORKDIR /root
 
