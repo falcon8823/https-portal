@@ -1,4 +1,4 @@
-FROM nginx:1.13.5
+FROM nginx:1.13
 
 MAINTAINER Hayato Okumoto "falcon@falconsrv.net"
 
