@@ -19,6 +19,7 @@ Docker Hub page:
   - [Quick Start](#quick-start)
   - [Features](#features)
     - [Test Locally](#test-locally)
+    - [Redirections](#redirections)
     - [Automatic Container Discovery](#automatic-container-discovery)
     - [Hybrid Setup with Non-Dockerized Apps](#hybrid-setup-with-non-dockerized-apps)
     - [Multiple Domains](#multiple-domains)
@@ -137,6 +138,19 @@ or
 * set up DNSMasq on your computer/router. This method provides more flexibility.
 
 Once you are done testing, you can deploy your application stack to the server.
+
+### Redirections
+
+HTTPS-PORTAL support quick setup for redirections. For simplicity, it only
+supports 301 redirection to another domain with https protocol.
+
+```yaml
+https-portal:
+  # ...
+  environment:
+    STAGE: local
+    DOMAINS: 'example.com => target.example.com' # Notice it's "=>" instead of the normal "->"
+```
 
 ### Automatic Container Discovery
 
@@ -312,6 +326,13 @@ WEBSOCKET=true
 ```
 
 to make HTTPS-PORTAL proxy WEBSOCKET connections.
+
+To avoid nginx DNS caching activate dynamic upstream
+
+```
+RESOLVER="127.0.0.11 ipv6=off valid=30s"
+DYNAMIC_UPSTREAM=true
+```
 
 ### Override Nginx Configuration Files
 
