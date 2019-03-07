@@ -18,6 +18,18 @@ server {
         return 444;
     }
 
+    <% if domain.access_restriction %>
+        <% domain.access_restriction.each do |ip| %>
+            allow <%= ip %>;
+        <% end %>
+        deny all;
+    <% end %>
+
+    <% if domain.basic_auth_enabled? %>
+        auth_basic "Password";
+        auth_basic_user_file <%= domain.htaccess_path %>;
+    <% end %>
+
     <% if domain.upstream %>
     location / {
         <% if ENV['DYNAMIC_UPSTREAM'] && ENV['DYNAMIC_UPSTREAM'].downcase == 'true' %>
@@ -40,7 +52,7 @@ server {
     }
     <% elsif domain.redirect_target_url %>
     location / {
-      return    301 https://<%= domain.redirect_target_url %>$request_uri;
+      return    301 <%= domain.redirect_target_url %>$request_uri;
     }
     <% else %>
     location / {
